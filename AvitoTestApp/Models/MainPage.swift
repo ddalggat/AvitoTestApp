@@ -16,4 +16,5 @@ struct MainInfo: Codable {
     let title: String
     let price: String
     let location: String
+    let image_url: String
 }
