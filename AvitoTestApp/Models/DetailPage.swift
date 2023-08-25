@@ -9,5 +9,5 @@ import Foundation
 
 struct DetailPage: Codable {
     let id: String
-    
+    let title: String
 }
