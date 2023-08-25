@@ -14,4 +14,5 @@ struct DetailPage: Codable {
     let location: String
     let image_url: String
     let created_date: String
+    let description: String
 }
