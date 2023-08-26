@@ -16,4 +16,5 @@ struct DetailPage: Codable {
     let created_date: String
     let description: String
     let email: String
+    let phone_number: String
 }
