@@ -12,4 +12,8 @@ protocol ProductsListViewViewModelDelegate: AnyObject {
     func didLoadInitialProducts()
 }
 
-
+final class CatalogViewModel: NSObject {
+    
+    private var cellViewModel: [ProductCellViewModel] = []
+    var state: StateBinding = StateBinding(State.none)
+}
