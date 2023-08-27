@@ -16,6 +16,7 @@
 		BBB36BA12A9A722100398964 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BA02A9A722100398964 /* CatalogView.swift */; };
 		BBB36BA42A9A793200398964 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BA32A9A793200398964 /* CatalogViewModel.swift */; };
 		BBB36BA62A9BCC4800398964 /* ProductCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BA52A9BCC4800398964 /* ProductCellViewModel.swift */; };
+		BBB36BA92A9BD4D100398964 /* StateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BA82A9BD4D100398964 /* StateBinding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BBB36BA02A9A722100398964 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		BBB36BA32A9A793200398964 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
 		BBB36BA52A9BCC4800398964 /* ProductCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellViewModel.swift; sourceTree = "<group>"; };
+		BBB36BA82A9BD4D100398964 /* StateBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateBinding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		BB8A59E12A9FDD130064A391 /* AvitoTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				BBB36BA72A9BD4AB00398964 /* StateManager */,
 				BBB36BA22A9A791800398964 /* ViewModels */,
 				BBB36B9F2A9A71E500398964 /* Views */,
 				BBA01A402A97F709009C7C4C /* Models */,
@@ -106,6 +109,14 @@
 				BBB36BA52A9BCC4800398964 /* ProductCellViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BBB36BA72A9BD4AB00398964 /* StateManager */ = {
+			isa = PBXGroup;
+			children = (
+				BBB36BA82A9BD4D100398964 /* StateBinding.swift */,
+			);
+			path = StateManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBB36BA12A9A722100398964 /* CatalogView.swift in Sources */,
+				BBB36BA92A9BD4D100398964 /* StateBinding.swift in Sources */,
 				BB8A59E32A9FDD130064A391 /* AppDelegate.swift in Sources */,
 				BBB36BA62A9BCC4800398964 /* ProductCellViewModel.swift in Sources */,
 				BBB36BA42A9A793200398964 /* CatalogViewModel.swift in Sources */,
