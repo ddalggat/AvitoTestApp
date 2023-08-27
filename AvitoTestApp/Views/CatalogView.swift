@@ -18,6 +18,9 @@ extension UIView {
 
 class CatalogView: UIView {
     
+    private let viewModel = ProductsListViewViewModel()
+    public weak var delegate: ProductsListViewDelegate?
+    
     private let loadedIndicator: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.hidesWhenStopped = true
@@ -51,6 +54,51 @@ class CatalogView: UIView {
     }
     
     func setupView() {
-        viewModel
+        viewModel.state.bind { state in
+            DispatchQueue.main.async {
+                switch state {
+                case .loading:
+                    self.loadedIndicator.startAnimating()
+                case .result:
+                    self.loadedIndicator.stopAnimating()
+                case .error:
+                    self.loadedIndicator.stopAnimating()
+                default: break
+                }
+            }
+        }
+    }
+    
+    func setupCollectionView() {
+        collectionView.delegate = viewModel
+        collectionView.dataSource = viewModel
+    }
+    
+    func setConstraints(){
+        NSLayoutConstraint.activate([
+            loadedIndicator.widthAnchor.constraint(equalToConstant: 100),
+            loadedIndicator.heightAnchor.constraint(equalToConstant: 100),
+            loadedIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadedIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
+extension СatalogView: ProductsListViewViewModelDelegate {
+    func didSelectPoduct(_ idProduct: String) {
+        delegate?.productsView(self, didSelect: idProduct)
+    }
+    
+    func didLoadInitialProducts() {
+        collectionView.isHidden = false
+        collectionView.reloadData()
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
     }
 }
