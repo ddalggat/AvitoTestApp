@@ -15,20 +15,22 @@ extension UIView {
     }
 }
 
+protocol CatalogViewDelegate: AnyObject {
+    func productsView(_ productView: CatalogView, didSelect id: String)
+}
 
 class CatalogView: UIView {
     
-    private let viewModel = ProductsListViewViewModel()
-    public weak var delegate: ProductsListViewDelegate?
-    
+    private let viewModel = CatalogViewModel()
+    public weak var delegate: CatalogViewDelegate?
+
     private let loadedIndicator: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.hidesWhenStopped = true
         loader.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return loader
     }()
-    
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,7 +39,7 @@ class CatalogView: UIView {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.isHidden = true
         view.alpha = 0
-//        view.register(<#T##nib: UINib?##UINib?#>, forCellWithReuseIdentifier: <#T##String#>)
+        view.register(ProductCellView.self, forCellWithReuseIdentifier: ProductCellView.reuseId)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -47,6 +49,11 @@ class CatalogView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(collectionView, loadedIndicator)
+        setConstraints()
+        viewModel.delegate = self
+        viewModel.fetchProductsList()
+        setupView()
+        setupCollectionView()
     }
     
     required init?(coder: NSCoder) {
@@ -89,7 +96,7 @@ class CatalogView: UIView {
     }
 }
 
-extension СatalogView: ProductsListViewViewModelDelegate {
+extension CatalogView: CatalogViewModelDelegate {
     func didSelectPoduct(_ idProduct: String) {
         delegate?.productsView(self, didSelect: idProduct)
     }
@@ -102,3 +109,4 @@ extension СatalogView: ProductsListViewViewModelDelegate {
         }
     }
 }
+

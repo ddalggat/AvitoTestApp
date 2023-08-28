@@ -19,6 +19,11 @@
 		BBB36BA92A9BD4D100398964 /* StateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BA82A9BD4D100398964 /* StateBinding.swift */; };
 		BBB36BAB2A9BD59500398964 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BAA2A9BD59500398964 /* DetailViewModel.swift */; };
 		BBB36BAE2A9BD87F00398964 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BAD2A9BD87F00398964 /* APICaller.swift */; };
+		BBB36BB22A9D2BF300398964 /* ProductCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB36BB12A9D2BF300398964 /* ProductCellView.swift */; };
+		BBD359662A9D326C005564E5 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BBD359652A9D326C005564E5 /* SDWebImage */; };
+		BBD359682A9D3333005564E5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD359672A9D3333005564E5 /* DetailView.swift */; };
+		BBD3596A2A9D3392005564E5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD359692A9D3392005564E5 /* MainViewController.swift */; };
+		BBD3596C2A9D343F005564E5 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD3596B2A9D343F005564E5 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +41,10 @@
 		BBB36BA82A9BD4D100398964 /* StateBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateBinding.swift; sourceTree = "<group>"; };
 		BBB36BAA2A9BD59500398964 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		BBB36BAD2A9BD87F00398964 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		BBB36BB12A9D2BF300398964 /* ProductCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellView.swift; sourceTree = "<group>"; };
+		BBD359672A9D3333005564E5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		BBD359692A9D3392005564E5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		BBD3596B2A9D343F005564E5 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD359662A9D326C005564E5 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +78,7 @@
 		BB8A59E12A9FDD130064A391 /* AvitoTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				BBB36BAF2A9D2A6F00398964 /* Controllers */,
 				BBB36BAC2A9BD86E00398964 /* API */,
 				BBA01A402A97F709009C7C4C /* Models */,
 				BBB36B9F2A9A71E500398964 /* Views */,
@@ -103,6 +114,8 @@
 			children = (
 				BB8A59ED2A9FDD140064A391 /* LaunchScreen.storyboard */,
 				BBB36BA02A9A722100398964 /* CatalogView.swift */,
+				BBB36BB12A9D2BF300398964 /* ProductCellView.swift */,
+				BBD359672A9D3333005564E5 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -133,6 +146,15 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		BBB36BAF2A9D2A6F00398964 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BBD359692A9D3392005564E5 /* MainViewController.swift */,
+				BBD3596B2A9D343F005564E5 /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,15 +162,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB8A59F32A9FDD140064A391 /* Build configuration list for PBXNativeTarget "AvitoTestApp" */;
 			buildPhases = (
+				F6DB812C6D77E77E88001867 /* [CP] Check Pods Manifest.lock */,
 				BB8A59DB2A9FDD130064A391 /* Sources */,
 				BB8A59DC2A9FDD130064A391 /* Frameworks */,
 				BB8A59DD2A9FDD130064A391 /* Resources */,
+				EAC7D62BA163CA5BB8C058C0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = AvitoTestApp;
+			packageProductDependencies = (
+				BBD359652A9D326C005564E5 /* SDWebImage */,
+			);
 			productName = AvitoTestApp;
 			productReference = BB8A59DF2A9FDD130064A391 /* AvitoTestApp.app */;
 			productType = "com.apple.product-type.application";
@@ -177,6 +204,9 @@
 				Base,
 			);
 			mainGroup = BB8A59D62A9FDD130064A391;
+			packageReferences = (
+				BBD359642A9D326C005564E5 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = BB8A59E02A9FDD130064A391 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -198,21 +228,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EAC7D62BA163CA5BB8C058C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6DB812C6D77E77E88001867 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AvitoTestApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BB8A59DB2A9FDD130064A391 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BBB36BA12A9A722100398964 /* CatalogView.swift in Sources */,
+				BBD3596A2A9D3392005564E5 /* MainViewController.swift in Sources */,
+				BBD359682A9D3333005564E5 /* DetailView.swift in Sources */,
 				BBB36BA92A9BD4D100398964 /* StateBinding.swift in Sources */,
 				BB8A59E32A9FDD130064A391 /* AppDelegate.swift in Sources */,
 				BBB36BAE2A9BD87F00398964 /* APICaller.swift in Sources */,
+				BBB36BB22A9D2BF300398964 /* ProductCellView.swift in Sources */,
 				BBB36BA62A9BCC4800398964 /* ProductCellViewModel.swift in Sources */,
 				BBB36BAB2A9BD59500398964 /* DetailViewModel.swift in Sources */,
 				BBB36BA42A9A793200398964 /* CatalogViewModel.swift in Sources */,
 				BB8A59E52A9FDD130064A391 /* SceneDelegate.swift in Sources */,
 				BBA01A422A97F732009C7C4C /* MainPage.swift in Sources */,
 				BBB36B9E2A97B60700398964 /* DetailPage.swift in Sources */,
+				BBD3596C2A9D343F005564E5 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +498,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BBD359642A9D326C005564E5 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BBD359652A9D326C005564E5 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BBD359642A9D326C005564E5 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BB8A59D72A9FDD130064A391 /* Project object */;
 }

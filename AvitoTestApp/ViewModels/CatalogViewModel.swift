@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ProductsListViewViewModelDelegate: AnyObject {
+protocol CatalogViewModelDelegate: AnyObject {
     func didSelectPoduct(_ product: String)
     func didLoadInitialProducts()
 }
@@ -31,7 +31,7 @@ final class CatalogViewModel: NSObject {
         }
     }
     
-    public weak var delegate: ProductsListViewViewModelDelegate?
+    public weak var delegate: CatalogViewModelDelegate?
     
     public func fetchProductsList() {
         state.value = .loading
@@ -50,36 +50,36 @@ final class CatalogViewModel: NSObject {
         }
     }
 }
-
-//MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-
-extension ProductsListViewViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds.width
-        let width = (bounds - 30) / 2
-        let height = width * 1.6
-        return CGSize(width: width, height: height)
-    }
-}
-
-//MARK: - UICollectionViewDataSource
-
-extension ProductsListViewViewModel: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cellViewModel.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseId, for: indexPath) as? ProductCollectionViewCell else {
-            fatalError()
+    //MARK: - UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+    
+    extension CatalogViewModel: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let bounds = UIScreen.main.bounds.width
+            let width = (bounds - 30) / 2
+            let height = width * 1.6
+            return CGSize(width: width, height: height)
         }
-        cell.config(with: cellViewModel[indexPath.row])
-        return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let product = products[indexPath.row]
-        delegate?.didSelectPoduct(product.id)
-    }
+    //MARK: - UICollectionViewDataSource
+    
+    extension CatalogViewModel: UICollectionViewDataSource {
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            cellViewModel.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCellView.reuseId, for: indexPath) as? ProductCellView else {
+                fatalError()
+            }
+            cell.config(with: cellViewModel[indexPath.row])
+            return cell
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            let product = products[indexPath.row]
+            delegate?.didSelectPoduct(product.id)
+        }
 }
