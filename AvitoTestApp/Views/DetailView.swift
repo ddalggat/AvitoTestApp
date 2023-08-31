@@ -2,209 +2,149 @@
 //  DetailView.swift
 //  AvitoTestApp
 //
-//  Created by Abdullabekov Dalgat on 8/28/23.
+//  Created by Abdullabekov Dalgat on 9/1/23.
 //
 
-import Foundation
-import SDWebImage
+import UIKit
 
-class DetailView: UIScrollView{
+class DetailView: UIView {
     
-    private let contentForScrollView: UIView = {
+    // MARK: - Variables
+    private let contentView: UIView = {
         let view = UIView()
-        view.isUserInteractionEnabled = true
-        view.isExclusiveTouch = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
-
-    private let imageView: UIImageView = {
+    
+    let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private let priceLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 25, weight: .bold)
-        label.textAlignment = .left
-        
         label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.textAlignment = .left
+        label.font = .boldSystemFont(ofSize: 22)
         label.numberOfLines = 0
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let yourPriceButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Предложить свою цену >", for: .normal)
-        button.tintColor = .black
-        button.contentHorizontalAlignment = .left
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    let sendMessageButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Написать", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 10
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    let callButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Позвонить", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
-        button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 10
-                
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private let headerLabel: UILabel = {
+    let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 25, weight: .semibold)
-        label.text = "Описание"
-        label.textColor = .black
-        label.textAlignment = .left
-        
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 28)
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    let locationLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    let createdDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
         label.numberOfLines = 0
-        label.textColor = .black
-        label.textAlignment = .left
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let addressLabel: UILabel = {
+    let emailLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .black
-        label.textAlignment = .left
-        
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
         return label
     }()
     
-    private let buttonStack: UIStackView = {
-        let stack = UIStackView()
-        stack.spacing = 10
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
+    let phoneNumberLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
+        return label
     }()
     
+    let addressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
+    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
-        setConstraints()
+        setupUI()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public func config(with model: DetailPage) {
-        titleLabel.text = model.title
-        priceLabel.text = model.price
-        descriptionLabel.text = model.description
-        addressLabel.text = "\(model.location), \(model.address)"
 
-        if let imageURL = URL(string: model.image_url) {
-            imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
-            imageView.sd_setImage(with: imageURL)
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupUI()
     }
     
-    private func setupView() {
-        addSubview(contentForScrollView)
-        contentForScrollView.addSubviews(imageView,
-                                         priceLabel,
-                                         titleLabel,
-                                         yourPriceButton,
-                                         buttonStack,
-                                         addressLabel,
-                                         headerLabel,
-                                         descriptionLabel)
-        buttonStack.addArrangedSubview(callButton)
-        buttonStack.addArrangedSubview(sendMessageButton)
+    // MARK: - UI setup
+    private func setupUI() {
+        addSubview(contentView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(priceLabel)
+        contentView.addSubview(locationLabel)
+        contentView.addSubview(createdDateLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(emailLabel)
+        contentView.addSubview(phoneNumberLabel)
+        contentView.addSubview(addressLabel)
         
+        let padding: CGFloat = 15.0
         
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setConstraints() {
-        let padding: CGFloat = 20
-        let buttonSize = UIScreen.main.bounds.width / 2 - 20
         NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentForScrollView.topAnchor.constraint(equalTo: topAnchor),
-            contentForScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentForScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentForScrollView.widthAnchor.constraint(equalTo: widthAnchor),
-            contentForScrollView.heightAnchor.constraint(equalTo: heightAnchor),
-            contentForScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 0),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            imageView.heightAnchor.constraint(equalToConstant: 400.0),
             
-            imageView.topAnchor.constraint(equalTo: contentForScrollView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 400),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             
-            priceLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            priceLabel.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            priceLabel.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0),
+            priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
+            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8.0),
+            locationLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            yourPriceButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            yourPriceButton.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            yourPriceButton.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
+            createdDateLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 8.0),
+            createdDateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            buttonStack.topAnchor.constraint(equalTo: yourPriceButton.bottomAnchor, constant: padding),
-            buttonStack.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor,constant: padding),
-            buttonStack.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
+            descriptionLabel.topAnchor.constraint(equalTo: createdDateLabel.bottomAnchor, constant: padding),
+            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             
-            sendMessageButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            emailLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
+            emailLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            addressLabel.topAnchor.constraint(equalTo: callButton.bottomAnchor, constant: padding),
-            addressLabel.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            addressLabel.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
+            phoneNumberLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8.0),
+            phoneNumberLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            headerLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: padding),
-            headerLabel.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            headerLabel.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentForScrollView.leadingAnchor, constant: padding),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentForScrollView.trailingAnchor, constant: -padding)
-
+            addressLabel.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: 8.0),
+            addressLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            addressLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
         ])
     }
 }

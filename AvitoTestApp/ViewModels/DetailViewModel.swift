@@ -2,34 +2,23 @@
 //  DetailViewModel.swift
 //  AvitoTestApp
 //
-//  Created by Abdullabekov Dalgat on 8/27/23.
+//  Created by Abdullabekov Dalgat on 9/1/23.
 //
 
 import Foundation
 
-final class DetailPageViewViewModel: NSObject {
+final class DetailViewModel {
+    var service: AdvertisementServiceProtocol = AdvertisementService.advertisementService
+    var viewState: Observable<ViewState<Detail>> = Observable(ViewState.none)
     
-    var product: DetailPage! {
-        didSet {
-            self.bindDetailPageViewModelToController()
-        }
-    }
-    
-    var bindDetailPageViewModelToController : (() -> ()) = {}
-    var state: StateBinding = StateBinding(State.none)
-    
-    public func fetchDetailInfo(with id: String) {
-        state.value = .loading
-        APICaller.shared.getDetailInfo(with: id) { [weak self] result in
+    func fetchDetailInfo(id: String) {
+        viewState.value = .loading
+        service.fetchDetailAdvertisement(id: id) { result in
             switch result {
-            case .success(let product):
-                self?.state.value = .result
-                DispatchQueue.main.async {
-                    self?.product = product
-                }
+            case .success(let data):
+                self.viewState.value = .loaded(data)
             case .failure(let error):
-                self?.state.value = .error
-                fatalError(error.localizedDescription)
+                self.viewState.value = .error(error.localizedDescription)
             }
         }
     }

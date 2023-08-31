@@ -33,19 +33,32 @@ final class CatalogViewModel: NSObject {
     
     public weak var delegate: CatalogViewModelDelegate?
     
-    public func fetchProductsList() {
+//    public func fetchProductsList() {
+//        state.value = .loading
+//        APICaller.shared.getProductsList() { [weak self] result in
+//            switch result {
+//            case .success(let product):
+//                self?.state.value = .result
+//                self?.products = product
+//                DispatchQueue.main.async {
+//                    self?.delegate?.didLoadInitialProducts()
+//                }
+//            case .failure(let error):
+//                self?.state.value = .error
+//                fatalError(error.localizedDescription)
+//            }
+//        }
+//    }
+    
+    func fetchProductsList() {
+    func fetchProductsList() {
         state.value = .loading
-        APICaller.shared.getProductsList() { [weak self] result in
+        APICaller.shared.getProductsList() { result in
             switch result {
-            case .success(let product):
-                self?.state.value = .result
-                self?.products = product
-                DispatchQueue.main.async {
-                    self?.delegate?.didLoadInitialProducts()
-                }
+            case .success(let data):
+                self.state.value = .result
             case .failure(let error):
-                self?.state.value = .error
-                print(error.localizedDescription)
+                self.state.value = .error
             }
         }
     }

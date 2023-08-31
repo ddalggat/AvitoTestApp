@@ -6,47 +6,17 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailViewController: UIViewController {
     
-    let id: String
+    private var viewModel: DetailViewModel
+    private let detailId: String
     
-    private let detailView = DetailView()
-    private var viewModel: DetailPageViewViewModel
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        setConstraints()
-        viewModel.fetchDetailInfo(with: id)
-        viewModel.bindDetailPageViewModelToController = {
-            self.detailView.config(with: self.viewModel.product)
-            self.title = self.viewModel.product.title
-        }
-        viewModel.state.bind { state in
-            DispatchQueue.main.async {
-                switch state {
-                case .loading:
-                    self.setupLoadedIndicator(state: true)
-                case .result:
-                    self.setupLoadedIndicator(state: false)
-                case .error:
-                    self.setupLoadedIndicator(state: false)
-                    self.errorAlert()
-                default: break
-                }
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    init(id: String) {
-        self.id = id
-        self.viewModel = DetailPageViewViewModel()
+    // MARK: - Init
+    init(detailId: String) {
+        self.viewModel = DetailViewModel()
+        self.detailId = detailId
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,92 +24,101 @@ class DetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let loadedIndicator: UIActivityIndicatorView = {
-        let loader = UIActivityIndicatorView(style: .large)
-        loader.hidesWhenStopped = true
-        loader.translatesAutoresizingMaskIntoConstraints = false
-
-        return loader
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.hidesWhenStopped = true
+        return spinner
     }()
     
     private let scrollView: UIScrollView = {
         let scroll = UIScrollView()
-        scroll.isUserInteractionEnabled = true
-        scroll.isExclusiveTouch = true
-        scroll.delaysContentTouches = false
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.backgroundColor = .systemBackground
         return scroll
     }()
     
-    private func setupView() {
+    private let detailView = DetailView()
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubview(detailView)
-        
-        
-        detailView.sendMessageButton.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)
-        detailView.callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
+        setupUI()
+        self.viewModel.viewState.bind { state in
+            DispatchQueue.main.async {
+                switch state {
+                case .loading:
+                    self.showActivityIndicator()
+                case .loaded:
+                    self.hideActivityIndicator()
+                    self.configureDetailData()
+                case .error(let message):
+                    self.hideActivityIndicator()
+                    self.displayErrorAlert(message: state?.message ?? message)
+                default: break
+                }
+            }
+        }
+        viewModel.fetchDetailInfo(id: detailId)
     }
     
-    private func setConstraints(){
+    private func setupUI() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(detailView)
+        
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            detailView.topAnchor.constraint(equalTo: view.topAnchor),
-            detailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            detailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            detailView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            scrollView.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            detailView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            detailView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            detailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         ])
     }
-
-}
-
-extension DetailViewController {
     
-    @objc func sendMessageButtonTapped(){
-        let alert = UIAlertController(title: "Написать продавцу", message: viewModel.product.email, preferredStyle: .alert)
-        let send = UIAlertAction(title: "Написать", style: .default) { action in
+    private func configureDetailData() {
+        guard let detail = viewModel.viewState.value?.data else {
+            return
         }
-        let cancel = UIAlertAction(title: "Отмена", style: .cancel) { (action) in
-        }
-        alert.addAction(send)
-        alert.addAction(cancel)
         
-        present(alert, animated: true)
-    }
-    
-    @objc func callButtonTapped(){
-        let alert = UIAlertController(title: "Позвонить продавцу", message: viewModel.product.phone_number, preferredStyle: .alert)
-        let send = UIAlertAction(title: "Позвонить", style: .default) { action in
-        }
-        let cancel = UIAlertAction(title: "Отмена", style: .cancel) { (action) in
-        }
-        alert.addAction(send)
-        alert.addAction(cancel)
+        detailView.titleLabel.text = detail.title
+        detailView.priceLabel.text = detail.price
+        detailView.locationLabel.text = detail.location
+        detailView.createdDateLabel.text = detail.createdDate
+        detailView.descriptionLabel.text = detail.description
+        detailView.emailLabel.text = detail.email
+        detailView.phoneNumberLabel.text = detail.phoneNumber
+        detailView.addressLabel.text = detail.address
         
-        present(alert, animated: true)
+        if let imageURL = URL(string: detail.imageURL) {
+            detailView.imageView.sd_setImage(with: imageURL, completed: nil)
+        }
     }
     
-    private func errorAlert() {
-        let alertVC = UIAlertController(
-            title: "Ошибка",
-            message: "Не удалось загрузить информацию о товаре",
-            preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertVC.addAction(action)
-        self.present(alertVC, animated: true, completion: nil)
+    private func displayErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
-    private func setupLoadedIndicator(state: Bool) {
-        if state {
-            self.view.addSubview(self.loadedIndicator)
-            self.loadedIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            self.loadedIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-            self.loadedIndicator.startAnimating()
-        }
-        else {
-            self.loadedIndicator.stopAnimating()
-        }
+    private func showActivityIndicator() {
+        spinner = UIActivityIndicatorView(style: .large)
+        spinner.center = self.view.center
+        self.view.addSubview(spinner)
+        spinner.startAnimating()
+    }
+    
+    private func hideActivityIndicator(){
+        self.spinner.stopAnimating()
     }
 }
-

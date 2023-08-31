@@ -7,15 +7,23 @@
 
 import Foundation
 
-struct MainPage: Codable {
-    let catalog: [MainInfo]
+import Foundation
+
+struct AdvertisementResponse: Codable {
+    let advertisements: [Advertisement]
 }
 
-struct MainInfo: Codable {
+struct Advertisement: Codable {
     let id: String
     let title: String
     let price: String
     let location: String
-    let image_url: String
-    let created_date: String
+    let imageURL: String
+    let createdDate: String
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, price, location
+        case imageURL = "image_url"
+        case createdDate = "created_date"
+    }
 }
