@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, CatalogViewDelegate {
+class MainViewController: UIViewController {
 
     private let productView = CatalogView()
     private var viewModel: CatalogViewModel

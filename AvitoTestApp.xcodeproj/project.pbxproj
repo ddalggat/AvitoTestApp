@@ -78,11 +78,11 @@
 		BB8A59E12A9FDD130064A391 /* AvitoTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				BBB36BAF2A9D2A6F00398964 /* Controllers */,
-				BBB36BAC2A9BD86E00398964 /* API */,
 				BBA01A402A97F709009C7C4C /* Models */,
 				BBB36B9F2A9A71E500398964 /* Views */,
 				BBB36BA22A9A791800398964 /* ViewModels */,
+				BBB36BAF2A9D2A6F00398964 /* Controllers */,
+				BBB36BAC2A9BD86E00398964 /* API */,
 				BBB36BA72A9BD4AB00398964 /* StateManager */,
 				BB8A59F62A9FDE0B0064A391 /* App */,
 				BB8A59EB2A9FDD140064A391 /* Assets.xcassets */,
@@ -162,11 +162,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB8A59F32A9FDD140064A391 /* Build configuration list for PBXNativeTarget "AvitoTestApp" */;
 			buildPhases = (
-				F6DB812C6D77E77E88001867 /* [CP] Check Pods Manifest.lock */,
 				BB8A59DB2A9FDD130064A391 /* Sources */,
 				BB8A59DC2A9FDD130064A391 /* Frameworks */,
 				BB8A59DD2A9FDD130064A391 /* Resources */,
-				EAC7D62BA163CA5BB8C058C0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,48 +225,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EAC7D62BA163CA5BB8C058C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AvitoTestApp/Pods-AvitoTestApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6DB812C6D77E77E88001867 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AvitoTestApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB8A59DB2A9FDD130064A391 /* Sources */ = {
@@ -432,7 +388,6 @@
 				INFOPLIST_FILE = AvitoTestApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -460,7 +415,6 @@
 				INFOPLIST_FILE = AvitoTestApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

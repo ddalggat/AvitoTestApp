@@ -45,7 +45,7 @@ final class CatalogViewModel: NSObject {
                 }
             case .failure(let error):
                 self?.state.value = .error
-                fatalError(error.localizedDescription)
+                print(error.localizedDescription)
             }
         }
     }
