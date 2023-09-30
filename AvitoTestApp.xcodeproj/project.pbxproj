@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB111C9A2AC86FC400F5BE8B /* Detailedscreen.gif in Resources */ = {isa = PBXBuildFile; fileRef = BB111C982AC86FC300F5BE8B /* Detailedscreen.gif */; };
+		BB111C9B2AC86FC400F5BE8B /* Generalscreen.gif in Resources */ = {isa = PBXBuildFile; fileRef = BB111C992AC86FC400F5BE8B /* Generalscreen.gif */; };
 		BB8A59E32A9FDD130064A391 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A59E22A9FDD130064A391 /* AppDelegate.swift */; };
 		BB8A59E52A9FDD130064A391 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A59E42A9FDD130064A391 /* SceneDelegate.swift */; };
 		BB8A59EC2A9FDD140064A391 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB8A59EB2A9FDD140064A391 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB111C982AC86FC300F5BE8B /* Detailedscreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Detailedscreen.gif; sourceTree = "<group>"; };
+		BB111C992AC86FC400F5BE8B /* Generalscreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Generalscreen.gif; sourceTree = "<group>"; };
 		BB8A59DF2A9FDD130064A391 /* AvitoTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8A59E22A9FDD130064A391 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB8A59E42A9FDD130064A391 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,9 +63,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB111C972AC86FA400F5BE8B /* GIFs */ = {
+			isa = PBXGroup;
+			children = (
+				BB111C982AC86FC300F5BE8B /* Detailedscreen.gif */,
+				BB111C992AC86FC400F5BE8B /* Generalscreen.gif */,
+			);
+			path = GIFs;
+			sourceTree = "<group>";
+		};
 		BB8A59D62A9FDD130064A391 = {
 			isa = PBXGroup;
 			children = (
+				BB111C972AC86FA400F5BE8B /* GIFs */,
 				BB8A59E12A9FDD130064A391 /* AvitoTestApp */,
 				BB8A59E02A9FDD130064A391 /* Products */,
 			);
@@ -235,8 +249,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB111C9A2AC86FC400F5BE8B /* Detailedscreen.gif in Resources */,
 				BB8A59EF2A9FDD140064A391 /* LaunchScreen.storyboard in Resources */,
 				BB8A59EC2A9FDD140064A391 /* Assets.xcassets in Resources */,
+				BB111C9B2AC86FC400F5BE8B /* Generalscreen.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
