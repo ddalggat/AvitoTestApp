@@ -7,11 +7,11 @@
 
 ## General screen
 
-![General](./GIFs/Generalscreen.gif)
+<img src="./GIFs/Generalscreen.gif" width="400" height="">
 
 ## Detailed screen
 
-![Detailed](./GIFs/Detailedscreen.gif)
+<img src="./GIFs/Detailedscreen.gif" width="400" height="">
 
 ## Features
 ### Using SDWebImage
